@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 import { Comment } from './class/comment';
 import { User } from './class/user';
@@ -22,4 +22,10 @@ const COMMENTS: Comment[] = [
 export class AppComponent {
   comments = COMMENTS;
   currentUser = CURRENT_USER;
+  chatMessage = '';
+
+  // 送信ボタンのクリックイベント
+  addChatMessage(message: string): void {
+    this.comments.push(new Comment(this.currentUser, message));
+  }
 }

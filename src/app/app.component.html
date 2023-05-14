@@ -25,16 +25,27 @@
   </section>
 
   <section class="chat-editor">
-    <form class="chat-form">
+    <form
+      (keydown.shift.enter)="addChatMessage(chatMessage); chatMessage = ''"
+      class="chat-form"
+    >
       <div class="form-header d-flex flex-row-reverse mb-2">
-        <span class="input-group-btn"
-          ><button class="btn btn-info btn-sm" type="submit" tabindex="2">
+        <span class="input-group-btn">
+          <button
+            (click)="addChatMessage(chatMessage); chatMessage = ''"
+            class="btn btn-info btn-sm"
+            type="submit"
+            tabindex="2"
+          >
             送信
-          </button></span
-        >
+          </button>
+        </span>
       </div>
       <div class="input-group">
         <textarea
+          [(ngModel)]="chatMessage"
+          name="chatMessage"
+          #textareaEl
           class="form-control"
           placeholder="メッセージを入力"
           tabindex="1"

@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 
 import { Comment } from './class/comment';
+import { User } from './class/user';
+
+const CURRENT_USER: User = new User(1, '五十川 洋平');
+const ANOTHER_USER: User = new User(2, '竹井 賢治');
 
 // prettier-ignore
 const COMMENTS: Comment[] = [
-  { name: '武井 賢治', message: 'こんにちは', },
-  { name: '福永 治', message: 'どうも、こんにちは。いい天気ですね', },
-  { name: '市川 詩織', message: 'お散歩日和ですね！', },
+  new Comment(ANOTHER_USER, 'お疲れ様です！'),
+  new Comment(ANOTHER_USER, 'この間の件ですが、どうなりましたか？'),
+  new Comment(CURRENT_USER, 'お疲れ様です！'),
+  new Comment(CURRENT_USER, 'クライアントからOK出ました！'),
 ];
 
 @Component({
@@ -16,4 +21,5 @@ const COMMENTS: Comment[] = [
 })
 export class AppComponent {
   comments = COMMENTS;
+  currentUser = CURRENT_USER;
 }

@@ -22,12 +22,10 @@ export class AppComponent {
   comments$: Observable<Comment[]>; // コメントデータ（データストア）
   commentsRef: AngularFireList<Comment>; // realtimeDB を操作するためのインタフェース
   currentUser = CURRENT_USER;
+
   chatMessage = ''; // 入力されるinput
 
-  item$: Observable<any>;
-
   constructor(private db: AngularFireDatabase) {
-    this.item$ = db.object('/item').valueChanges(); // '/item' からデータを取得して、valueChanges() で Observable に変換する
     this.commentsRef = db.list('/comments'); // DBからリスト参照（AngularFireList<T>）を返却
     this.comments$ = this.commentsRef
       .snapshotChanges() // 実データとデータキーを取得して、Observable に変換する
@@ -41,7 +39,7 @@ export class AppComponent {
       );
   }
 
-  // 送信ボタンのクリックイベント
+  // チャットの追加
   addChatMessage(message: string): void {
     if (message) {
       this.commentsRef.push(
@@ -49,5 +47,16 @@ export class AppComponent {
       );
       this.chatMessage = ''; // 入力エリアのリセット
     }
+  }
+
+  // チャットの編集
+  updateComment(comment: Comment): void {
+    const { key, message } = comment;
+    this.commentsRef.update(key, { message }); // key は realtimeDB の key（NVe-AnrxgBFuSBDKZOO <- こんなやつ）
+  }
+
+  // チャットの削除
+  deleteComment(comment: Comment): void {
+    this.commentsRef.remove(comment.key);
   }
 }

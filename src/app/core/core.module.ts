@@ -6,15 +6,17 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { environment } from '../../environments/environment';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [HeaderComponent],
   imports: [
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
   ],
+  exports: [HeaderComponent],
 })
 
 // 一度だけ読み込む用のモジュール

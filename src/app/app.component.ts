@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
   selector: 'ac-root',
   template: `
     <ac-header></ac-header>
-    <ac-chat></ac-chat>
+    <div class="page">
+      <!-- ルーティングで設定したコンポーネントが描画される -->
+      <router-outlet></router-outlet>
+    </div>
   `,
   styleUrls: ['./app.component.css'],
 })

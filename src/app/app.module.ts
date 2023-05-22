@@ -6,10 +6,11 @@ import { CoreModule } from './core/core.module';
 
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent, ChatComponent],
-  imports: [BrowserModule, SharedModule, CoreModule],
+  imports: [BrowserModule, SharedModule, CoreModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -7,9 +7,10 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
-  declarations: [AppComponent, ChatComponent],
+  declarations: [AppComponent, ChatComponent, SignUpComponent],
   imports: [BrowserModule, SharedModule, CoreModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

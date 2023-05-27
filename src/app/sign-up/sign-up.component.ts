@@ -19,6 +19,6 @@ export class SignUpComponent implements OnInit {
 
     this.authService
       .create(email, password)
-      .then(() => this.router.navigateByUrl('/'));
+      .then(() => this.router.navigateByUrl('/users/new'));
   }
 }

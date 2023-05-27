@@ -8,6 +8,11 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: ChatComponent },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users/users.module').then((m) => m.UsersModule),
+  },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },

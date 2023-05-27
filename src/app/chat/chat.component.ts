@@ -9,9 +9,7 @@ import {
 
 import { Comment } from '../class/comment';
 import { User } from '../class/user';
-
-const CURRENT_USER: User = new User(1, '五十川 洋平');
-const ANOTHER_USER: User = new User(2, '竹井 賢治');
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'ac-chat',
@@ -21,12 +19,33 @@ const ANOTHER_USER: User = new User(2, '竹井 賢治');
 export class ChatComponent implements OnInit {
   comments$: Observable<Comment[]>; // コメントデータ（データストア）
   commentsRef: AngularFireList<Comment>; // realtimeDB を操作するためのインタフェース
-  currentUser = CURRENT_USER;
+  currentUser: User;
 
   chatMessage = ''; // 入力されるinput
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private db: AngularFireDatabase
+  ) {
     this.commentsRef = db.list('/comments'); // DBからリスト参照（AngularFireList<T>）を返却
+  }
+
+  ngOnInit(): void {
+    // ログイン状態のユーザーを `currentUser` に代入
+    this.afAuth.authState.subscribe((user: firebase.User | null) => {
+      if (user) {
+        this.currentUser = new User(user);
+      }
+    });
+
+    /**
+     * 一旦放置
+     *
+     * this.currentUser = new User(user);
+     * ここで代入しているが、undefined になり、エラーが吐かれる時がある
+     */
+    // console.log(this.currentUser);
+
     this.comments$ = this.commentsRef
       .snapshotChanges() // 実データとデータキーを取得して、Observable に変換する
       .pipe(
@@ -38,8 +57,6 @@ export class ChatComponent implements OnInit {
         })
       );
   }
-
-  ngOnInit(): void {}
 
   // チャットの追加
   addChatMessage(message: string): void {

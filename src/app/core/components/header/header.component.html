@@ -4,5 +4,11 @@
   <a routerLink="/" class="navbar-brand text-dark">Angular Chat</a>
   <!-- prettier-ignore -->
   <a *ngIf="!isLogin" routerLink="/signup" class="navbar-text text-dark">SignUp</a>
-  <a *ngIf="isLogin" routerLink="/" class="navbar-text text-dark">Logout</a>
+  <a
+    *ngIf="isLogin"
+    routerLink="/"
+    class="navbar-text text-dark"
+    (click)="logout()"
+    >Logout</a
+  >
 </nav>

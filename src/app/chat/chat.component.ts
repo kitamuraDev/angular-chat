@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   comments$: Observable<Comment[]>; // コメントデータ（データストア）
   commentsRef: AngularFireList<Comment>; // realtimeDB を操作するためのインタフェース
   currentUser: User;
+  currentUser$: Observable<User>;
 
   chatMessage = ''; // 入力されるinput
 
@@ -32,11 +33,17 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     // ログイン状態のユーザーを `currentUser` に代入
-    this.afAuth.authState.subscribe((user: firebase.User | null) => {
-      if (user) {
-        this.currentUser = new User(user);
-      }
-    });
+    this.currentUser$ = this.afAuth.authState.pipe(
+      map((user: firebase.User | null) => {
+        if (user) {
+          this.currentUser = new User(user);
+
+          return this.currentUser;
+        }
+
+        return null; // ログインユーザーが見つからない場合
+      })
+    );
 
     /**
      * 一旦放置

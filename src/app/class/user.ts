@@ -6,7 +6,7 @@ export class User {
 
   initial: string;
 
-  constructor(user: firebase.User) {
+  constructor(user: User | firebase.User) {
     this.displayName = user.displayName;
     this.email = user.email;
     this.photoURL = user.photoURL;

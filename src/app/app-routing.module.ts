@@ -9,7 +9,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: ChatComponent },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./timeline/timeline.module').then((m) => m.TimelineModule),
+  },
   {
     path: 'users',
     loadChildren: () =>
